@@ -9,4 +9,5 @@ Groovier than Gruvbox. Built with [vim-colortemplate](https://github.com/lifepil
 
 1. Install [vim-colortemplate](https://github.com/lifepillar/vim-colortemplate).
 2. Edit and write `colors/groovy.colortemplate`.
-3. Run `:Colortemplate!` to compile into `colors/groovy.vim`.
+3. Set `:ColortemplateOutdir` to `./` (the repo root).
+4. Run `:Colortemplate!` to compile into `colors/groovy.vim`.
