@@ -51,7 +51,7 @@ Background: dark
 
 # Color palette for dark variant 
 # Color name                GUI                  Base256    Base16 (optional)
-Color: black                #494b53                ~        Black
+Color: black                #272c35                ~        Black
 Color: red                  rgb(255,   0,   0)     ~        DarkRed
 Color: green                rgb(  0, 255,   0)     ~        DarkGreen
 Color: yellow               #986801                ~        DarkYellow
@@ -59,7 +59,7 @@ Color: blue                 rgb(  0,   0, 255)     ~        DarkBlue
 Color: magenta              rgb(255,   0, 255)     ~        DarkMagenta
 Color: cyan                 rgb(  0, 255, 255)     ~        DarkCyan
 Color: white                rgb(235, 235, 235)     ~        LightGrey
-Color: brightblack          rgb(210, 210, 210)     ~        DarkGrey
+Color: brightblack          #4b5263                ~        DarkGrey
 Color: brightred            rgb(255, 100,   0)     ~        LightRed
 Color: brightgreen          rgb(100, 255,   0)     ~        LightGreen
 Color: brightyellow         #c18401                ~        LightYellow
@@ -68,6 +68,9 @@ Color: brightmagenta        rgb(255, 100, 255)     ~        LightMagenta
 Color: brightcyan           rgb(100, 255, 255)     ~        LightCyan
 # You may use hexadecimal values, too, and you may provide an explicit base-256 color:
 Color: brightwhite          #e0e0ed                231      White
+Color: brightgray           #3e4452                231      LightGrey
+Color: ebonyclay            #2b323d                231      DarkGrey
+Color: yellowBg             #fef6e1                ~        White
 # 
 
 # Terminal colors for dark variant {{{
@@ -82,7 +85,7 @@ Variant: gui
 Variant: 256 8
 #if get(g:, '@optionprefix_transp_bg', 0)
 Variant: gui 256 8
-    Normal           white             none
+    Normal           white             black
     Terminal         white             none
 #else
     Normal           white             black
@@ -106,7 +109,7 @@ ErrorMsg             white             black             reverse
 FoldColumn           white             black
 Folded               white             black             italic
 IncSearch            white             yellow            t=reverse g=standout
-LineNr               white             black
+LineNr               brightblack       black
 MatchParen           white             black
 ModeMsg              white             black
 MoreMsg              white             black
@@ -123,14 +126,14 @@ SpellBad             white             black             s=red
 SpellCap             white             black             s=blue
 SpellLocal           white             black             s=magenta
 SpellRare            white             black             s=cyan reverse
-StatusLine           white             black
-StatusLineNC         white             black
+StatusLine           white             brightgray        bold
+StatusLineNC         white             ebonyclay
 TabLine              white             black
 TabLineFill          white             black
 TabLineSel           white             black
 Title                white             black
 VertSplit            white             black
-Visual               white             black
+Visual               white             brightgray
 VisualNOS            white             black
 WarningMsg           white             black
 WildMenu             white             black
@@ -161,7 +164,7 @@ Background: light
 
 # Color palette for light variant {{{
 # Color name                GUI                  Base256    Base16 (optional)
-Color: black                rgb( 83,  88,  95)     ~        Black
+Color: black                #494b53                ~        Black
 Color: red                  rgb(255,   0,   0)     ~        DarkRed
 Color: green                rgb(  0, 255,   0)     ~        DarkGreen
 Color: yellow               rgb(255, 255,   0)     ~        DarkYellow
