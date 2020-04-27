@@ -4,7 +4,7 @@
 " Maintainer:   Ryan Nevius <ryanevius@gmail.com>
 " Website:      https://ryannevius.com
 " License:      Unlicense
-" Last Updated: Mon Apr 27 07:43:29 2020
+" Last Updated: Mon Apr 27 07:56:21 2020
 
 hi clear
 if exists('syntax_on')
@@ -22,6 +22,7 @@ hi! link StatusLineTermNC StatusLineNC
 hi! link Boolean Constant
 hi! link Character Constant
 hi! link Conditional Statement
+hi! link CursorLineNr CursorLine
 hi! link Define PreProc
 hi! link Debug Special
 hi! link Delimiter Special
@@ -49,7 +50,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
   if &background ==# 'dark'
     let g:terminal_ansi_colors = ['#272c35', '#ff0000', '#00ff00', '#986801',
           \ '#0000ff', '#ff00ff', '#00ffff', '#ebebeb', '#4b5263', '#ff6400',
-          \ '#64ff00', '#c18401', '#0064ff', '#ff64ff', '#64ffff', '#e0e0ed']
+          \ '#64ff00', '#c18401', '#61afef', '#ff64ff', '#64ffff', '#e0e0ed']
     if get(g:, 'groovy_transp_bg', 0) && !has('gui_running')
       hi Normal guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
       hi Terminal guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -61,13 +62,12 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi Conceal guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi CursorColumn guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi CursorLine guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi CursorLineNr guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi CursorLine guifg=NONE guibg=#2c323c guisp=NONE gui=NONE cterm=NONE
     hi DiffAdd guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffChange guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffDelete guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffText guifg=#ebebeb guibg=#272c35 guisp=NONE gui=bold,reverse cterm=bold,reverse
-    hi Directory guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi Directory guifg=#61afef guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi EndOfBuffer guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi ErrorMsg guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi FoldColumn guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
@@ -95,7 +95,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi TabLine guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi TabLineFill guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi TabLineSel guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi Title guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi Title guifg=#ebebeb guibg=#272c35 guisp=NONE gui=bold cterm=bold
     hi VertSplit guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi Visual guifg=#ebebeb guibg=#3e4452 guisp=NONE gui=NONE cterm=NONE
     hi VisualNOS guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
@@ -218,13 +218,12 @@ if s:t_Co >= 256
     hi Conceal ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor ctermfg=255 ctermbg=236 cterm=NONE
     hi CursorColumn ctermfg=255 ctermbg=236 cterm=NONE
-    hi CursorLine ctermfg=255 ctermbg=236 cterm=NONE
-    hi CursorLineNr ctermfg=255 ctermbg=236 cterm=NONE
+    hi CursorLine ctermfg=NONE ctermbg=231 cterm=NONE
     hi DiffAdd ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffChange ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffDelete ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffText ctermfg=255 ctermbg=236 cterm=bold,reverse
-    hi Directory ctermfg=255 ctermbg=236 cterm=NONE
+    hi Directory ctermfg=39 ctermbg=236 cterm=NONE
     hi EndOfBuffer ctermfg=255 ctermbg=236 cterm=NONE
     hi ErrorMsg ctermfg=255 ctermbg=236 cterm=reverse
     hi FoldColumn ctermfg=255 ctermbg=236 cterm=NONE
@@ -252,7 +251,7 @@ if s:t_Co >= 256
     hi TabLine ctermfg=255 ctermbg=236 cterm=NONE
     hi TabLineFill ctermfg=255 ctermbg=236 cterm=NONE
     hi TabLineSel ctermfg=255 ctermbg=236 cterm=NONE
-    hi Title ctermfg=255 ctermbg=236 cterm=NONE
+    hi Title ctermfg=255 ctermbg=236 cterm=bold
     hi VertSplit ctermfg=255 ctermbg=236 cterm=NONE
     hi Visual ctermfg=255 ctermbg=231 cterm=NONE
     hi VisualNOS ctermfg=255 ctermbg=236 cterm=NONE
@@ -366,13 +365,12 @@ if s:t_Co >= 8
     hi Conceal ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi CursorColumn ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi CursorLine ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi CursorLineNr ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi CursorLine ctermfg=NONE ctermbg=LightGrey cterm=NONE
     hi DiffAdd ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffChange ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffDelete ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffText ctermfg=LightGrey ctermbg=Black cterm=bold,reverse
-    hi Directory ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi Directory ctermfg=LightBlue ctermbg=Black cterm=NONE
     hi EndOfBuffer ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi ErrorMsg ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi FoldColumn ctermfg=LightGrey ctermbg=Black cterm=NONE
@@ -400,7 +398,7 @@ if s:t_Co >= 8
     hi TabLine ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi TabLineFill ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi TabLineSel ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi Title ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi Title ctermfg=LightGrey ctermbg=Black cterm=bold
     hi VertSplit ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi Visual ctermfg=LightGrey ctermbg=LightGrey cterm=NONE
     hi VisualNOS ctermfg=LightGrey ctermbg=Black cterm=NONE
@@ -595,11 +593,12 @@ endif
 " Color: brightred            rgb(255, 100,   0)     ~        LightRed
 " Color: brightgreen          rgb(100, 255,   0)     ~        LightGreen
 " Color: brightyellow         #c18401                ~        LightYellow
-" Color: brightblue           rgb(  0, 100, 255)     ~        LightBlue
+" Color: brightblue           #61afef                ~        LightBlue
 " Color: brightmagenta        rgb(255, 100, 255)     ~        LightMagenta
 " Color: brightcyan           rgb(100, 255, 255)     ~        LightCyan
 " Color: brightwhite          #e0e0ed                231      White
 " Color: brightgray           #3e4452                231      LightGrey
+" Color: charade              #2c323c                231      LightGrey
 " Color: ebonyclay            #2b323d                231      DarkGrey
 " Color: yellowBg             #fef6e1                ~        White
 " Term colors: black red green yellow blue magenta cyan white

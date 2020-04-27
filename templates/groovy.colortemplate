@@ -22,6 +22,7 @@ StatusLineTermNC     -> StatusLineNC
 Boolean              -> Constant
 Character            -> Constant
 Conditional          -> Statement
+CursorLineNr         -> CursorLine
 Define               -> PreProc
 Debug                -> Special
 Delimiter            -> Special
@@ -63,12 +64,13 @@ Color: brightblack          #4b5263                ~        DarkGrey
 Color: brightred            rgb(255, 100,   0)     ~        LightRed
 Color: brightgreen          rgb(100, 255,   0)     ~        LightGreen
 Color: brightyellow         #c18401                ~        LightYellow
-Color: brightblue           rgb(  0, 100, 255)     ~        LightBlue
+Color: brightblue           #61afef                ~        LightBlue
 Color: brightmagenta        rgb(255, 100, 255)     ~        LightMagenta
 Color: brightcyan           rgb(100, 255, 255)     ~        LightCyan
 # You may use hexadecimal values, too, and you may provide an explicit base-256 color:
 Color: brightwhite          #e0e0ed                231      White
 Color: brightgray           #3e4452                231      LightGrey
+Color: charade              #2c323c                231      LightGrey
 Color: ebonyclay            #2b323d                231      DarkGrey
 Color: yellowBg             #fef6e1                ~        White
 # 
@@ -97,13 +99,12 @@ ColorColumn          fg                black
 Conceal              none              none
 Cursor               white             black
 CursorColumn         white             black
-CursorLine           white             black
-CursorLineNr         white             black
+CursorLine           none              charade
 DiffAdd              white             black             reverse
 DiffChange           white             black             reverse
 DiffDelete           white             black             reverse
 DiffText             white             black             bold,reverse
-Directory            white             black
+Directory            brightblue        black
 EndOfBuffer          white             black
 ErrorMsg             white             black             reverse
 FoldColumn           white             black
@@ -131,7 +132,7 @@ StatusLineNC         white             ebonyclay
 TabLine              white             black
 TabLineFill          white             black
 TabLineSel           white             black
-Title                white             black
+Title                white             black             bold
 VertSplit            white             black
 Visual               white             brightgray
 VisualNOS            white             black
