@@ -8,7 +8,7 @@ Author:        Ryan Nevius <ryanevius@gmail.com>
 Website:       https://ryannevius.com
 Description:   A true color colorscheme with dark and light variants
 License:       Unlicense
-Option Prefix: groovy
+Neovim:        yes
 # }}}
 
 # Documentation {{{
@@ -28,6 +28,7 @@ Debug                -> Special
 Delimiter            -> Special
 Exception            -> Statement
 Float                -> Constant
+FoldColumn           -> LineNr
 Function             -> Identifier
 Include              -> PreProc
 Keyword              -> Statement
@@ -39,10 +40,13 @@ PreCondit            -> PreProc
 Repeat               -> Statement
 SpecialChar          -> Special
 SpecialComment       -> Special
+SpecialKey           -> Whitespace
 StorageClass         -> Type
 String               -> Constant
 Structure            -> Type
-Tag                  -> Special
+TabLineSel           -> StatusLineNC
+TabLineFill          -> TabLineSel
+Tag                  -> Identifier
 Typedef              -> Type
 # See `:help lCursor`
 lCursor              -> Cursor
@@ -57,21 +61,26 @@ Color: red                  rgb(255,   0,   0)     ~        DarkRed
 Color: green                rgb(  0, 255,   0)     ~        DarkGreen
 Color: yellow               #986801                ~        DarkYellow
 Color: blue                 rgb(  0,   0, 255)     ~        DarkBlue
-Color: magenta              rgb(255,   0, 255)     ~        DarkMagenta
+Color: magenta              #c678dd                ~        DarkMagenta
 Color: cyan                 rgb(  0, 255, 255)     ~        DarkCyan
 Color: white                rgb(235, 235, 235)     ~        LightGrey
 Color: brightblack          #4b5263                ~        DarkGrey
-Color: brightred            rgb(255, 100,   0)     ~        LightRed
-Color: brightgreen          rgb(100, 255,   0)     ~        LightGreen
+Color: brightred            #e06c75                ~        LightRed
+Color: brightgreen          #98c379                ~        LightGreen
 Color: brightyellow         #c18401                ~        LightYellow
 Color: brightblue           #61afef                ~        LightBlue
 Color: brightmagenta        rgb(255, 100, 255)     ~        LightMagenta
 Color: brightcyan           rgb(100, 255, 255)     ~        LightCyan
 # You may use hexadecimal values, too, and you may provide an explicit base-256 color:
 Color: brightwhite          #e0e0ed                231      White
-Color: brightgray           #3e4452                231      LightGrey
+Color: brightergrey         #3e4452                231      LightGrey
+Color: brightgrey           #3b4048                ~        LightGrey
 Color: charade              #2c323c                231      LightGrey
 Color: ebonyclay            #2b323d                231      DarkGrey
+Color: harvestgold          #e5c07b                ~        DarkYellow
+Color: orange               #d19a66                ~        DarkYellow
+Color: shuttlegrey          #5c6370                231      LightGrey
+Color: woodsmoke            #181a1f                ~        Black
 Color: yellowBg             #fef6e1                ~        White
 # 
 
@@ -98,23 +107,22 @@ Variant: gui 256 8
 ColorColumn          fg                black
 Conceal              none              none
 Cursor               white             black
-CursorColumn         white             black
+CursorColumn         none              charade
 CursorLine           none              charade
 DiffAdd              white             black             reverse
 DiffChange           white             black             reverse
 DiffDelete           white             black             reverse
 DiffText             white             black             bold,reverse
 Directory            brightblue        black
-EndOfBuffer          white             black
+EndOfBuffer          none              none
 ErrorMsg             white             black             reverse
-FoldColumn           white             black
 Folded               white             black             italic
 IncSearch            white             yellow            t=reverse g=standout
 LineNr               brightblack       black
-MatchParen           white             black
+MatchParen           brightred         none              bold,underline
 ModeMsg              white             black
 MoreMsg              white             black
-NonText              white             black
+NonText              shuttlegrey       none
 Pmenu                white             black
 PmenuSbar            white             black
 PmenuSel             white             black
@@ -122,30 +130,29 @@ PmenuThumb           white             black
 Question             white             black
 Search               white             brightyellow
 SignColumn           white             black
-SpecialKey           white             black
 SpellBad             white             black             s=red
 SpellCap             white             black             s=blue
 SpellLocal           white             black             s=magenta
 SpellRare            white             black             s=cyan reverse
-StatusLine           white             brightgray        bold
+StatusLine           white             brightergrey      bold
 StatusLineNC         white             ebonyclay
 TabLine              white             black
-TabLineFill          white             black
-TabLineSel           white             black
-Title                white             black             bold
-VertSplit            white             black
-Visual               white             brightgray
+# TabLineFill          white             black
+Title                white             none              bold
+VertSplit            woodsmoke         none
+Visual               white             brightergrey
 VisualNOS            white             black
 WarningMsg           white             black
+Whitespace           brightgrey        none
 WildMenu             white             black
 # Other conventional group names (see `:help group-name`)
-Comment              white             none              italic
-Constant             white             none
+Comment              shuttlegrey       none              italic
+Constant             orange            none
 Error                white             black             reverse
-Identifier           white             none
+Identifier           brightblue        none
 Ignore               white             none
-PreProc              white             none
-Special              white             none
+PreProc              harvestgold       none
+Special              magenta           none
 Statement            white             none
 Todo                 white             none
 Type                 white             none
@@ -242,6 +249,7 @@ StatusLineNC         black             white
 TabLine              black             white
 TabLineFill          black             white
 TabLineSel           black             white
+TermCursor           none              none              reverse
 Title                black             white
 VertSplit            black             white
 Visual               black             white

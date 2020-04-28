@@ -1,4 +1,4 @@
-*groovy.txt*	For Vim version 8.0	Last change: 2020 Apr 27
+*groovy.txt*	For Vim version 8.0	Last change: 2020 Apr 28
 
 
 		  Groovy color scheme    by Ryan Nevius

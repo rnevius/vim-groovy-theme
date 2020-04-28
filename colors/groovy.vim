@@ -4,7 +4,7 @@
 " Maintainer:   Ryan Nevius <ryanevius@gmail.com>
 " Website:      https://ryannevius.com
 " License:      Unlicense
-" Last Updated: Mon Apr 27 07:56:21 2020
+" Last Updated: Tue Apr 28 13:59:12 2020
 
 hi clear
 if exists('syntax_on')
@@ -14,7 +14,7 @@ endif
 let g:colors_name = 'groovy'
 
 let s:t_Co = exists('&t_Co') && !empty(&t_Co) && &t_Co > 1 ? &t_Co : 2
-let s:italics = (&t_ZH != '' && &t_ZH != '[7m') || has('gui_running')
+let s:italics = (&t_ZH != '' && &t_ZH != '[7m') || has('gui_running') || has('nvim')
 
 hi! link QuickFixLine Search
 hi! link StatusLineTerm StatusLine
@@ -28,6 +28,7 @@ hi! link Debug Special
 hi! link Delimiter Special
 hi! link Exception Statement
 hi! link Float Constant
+hi! link FoldColumn LineNr
 hi! link Function Identifier
 hi! link Include PreProc
 hi! link Keyword Statement
@@ -39,18 +40,39 @@ hi! link PreCondit PreProc
 hi! link Repeat Statement
 hi! link SpecialChar Special
 hi! link SpecialComment Special
+hi! link SpecialKey Whitespace
 hi! link StorageClass Type
 hi! link String Constant
 hi! link Structure Type
-hi! link Tag Special
+hi! link TabLineSel StatusLineNC
+hi! link TabLineFill TabLineSel
+hi! link Tag Identifier
 hi! link Typedef Type
 hi! link lCursor Cursor
 
 if (has('termguicolors') && &termguicolors) || has('gui_running')
   if &background ==# 'dark'
     let g:terminal_ansi_colors = ['#272c35', '#ff0000', '#00ff00', '#986801',
-          \ '#0000ff', '#ff00ff', '#00ffff', '#ebebeb', '#4b5263', '#ff6400',
-          \ '#64ff00', '#c18401', '#61afef', '#ff64ff', '#64ffff', '#e0e0ed']
+          \ '#0000ff', '#c678dd', '#00ffff', '#ebebeb', '#4b5263', '#e06c75',
+          \ '#98c379', '#c18401', '#61afef', '#ff64ff', '#64ffff', '#e0e0ed']
+    if has('nvim')
+      let g:terminal_color_0 = '#272c35'
+      let g:terminal_color_1 = '#ff0000'
+      let g:terminal_color_2 = '#00ff00'
+      let g:terminal_color_3 = '#986801'
+      let g:terminal_color_4 = '#0000ff'
+      let g:terminal_color_5 = '#c678dd'
+      let g:terminal_color_6 = '#00ffff'
+      let g:terminal_color_7 = '#ebebeb'
+      let g:terminal_color_8 = '#4b5263'
+      let g:terminal_color_9 = '#e06c75'
+      let g:terminal_color_10 = '#98c379'
+      let g:terminal_color_11 = '#c18401'
+      let g:terminal_color_12 = '#61afef'
+      let g:terminal_color_13 = '#ff64ff'
+      let g:terminal_color_14 = '#64ffff'
+      let g:terminal_color_15 = '#e0e0ed'
+    endif
     if get(g:, 'groovy_transp_bg', 0) && !has('gui_running')
       hi Normal guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
       hi Terminal guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -61,23 +83,22 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi ColorColumn guifg=fg guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi Conceal guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi CursorColumn guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi CursorColumn guifg=NONE guibg=#2c323c guisp=NONE gui=NONE cterm=NONE
     hi CursorLine guifg=NONE guibg=#2c323c guisp=NONE gui=NONE cterm=NONE
     hi DiffAdd guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffChange guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffDelete guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
     hi DiffText guifg=#ebebeb guibg=#272c35 guisp=NONE gui=bold,reverse cterm=bold,reverse
     hi Directory guifg=#61afef guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi EndOfBuffer guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi EndOfBuffer guifg=NONE guibg=NONE guisp=NONE gui=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
     hi ErrorMsg guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
-    hi FoldColumn guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi Folded guifg=#ebebeb guibg=#272c35 guisp=NONE gui=italic cterm=italic
     hi IncSearch guifg=#ebebeb guibg=#986801 guisp=NONE gui=standout cterm=standout
     hi LineNr guifg=#4b5263 guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi MatchParen guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi MatchParen guifg=#e06c75 guibg=NONE guisp=NONE gui=bold,underline cterm=bold,underline
     hi ModeMsg guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi MoreMsg guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi NonText guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi NonText guifg=#5c6370 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Pmenu guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi PmenuSbar guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi PmenuSel guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
@@ -85,29 +106,27 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi Question guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi Search guifg=#ebebeb guibg=#c18401 guisp=NONE gui=NONE cterm=NONE
     hi SignColumn guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi SpecialKey guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi SpellBad guifg=#ebebeb guibg=#272c35 guisp=#ff0000 gui=NONE cterm=NONE
     hi SpellCap guifg=#ebebeb guibg=#272c35 guisp=#0000ff gui=NONE cterm=NONE
-    hi SpellLocal guifg=#ebebeb guibg=#272c35 guisp=#ff00ff gui=NONE cterm=NONE
+    hi SpellLocal guifg=#ebebeb guibg=#272c35 guisp=#c678dd gui=NONE cterm=NONE
     hi SpellRare guifg=#ebebeb guibg=#272c35 guisp=#00ffff gui=reverse cterm=reverse
     hi StatusLine guifg=#ebebeb guibg=#3e4452 guisp=NONE gui=bold cterm=bold
     hi StatusLineNC guifg=#ebebeb guibg=#2b323d guisp=NONE gui=NONE cterm=NONE
     hi TabLine guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi TabLineFill guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi TabLineSel guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi Title guifg=#ebebeb guibg=#272c35 guisp=NONE gui=bold cterm=bold
-    hi VertSplit guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi Title guifg=#ebebeb guibg=NONE guisp=NONE gui=bold cterm=bold
+    hi VertSplit guifg=#181a1f guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Visual guifg=#ebebeb guibg=#3e4452 guisp=NONE gui=NONE cterm=NONE
     hi VisualNOS guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
     hi WarningMsg guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
+    hi Whitespace guifg=#3b4048 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi WildMenu guifg=#ebebeb guibg=#272c35 guisp=NONE gui=NONE cterm=NONE
-    hi Comment guifg=#ebebeb guibg=NONE guisp=NONE gui=italic cterm=italic
-    hi Constant guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
+    hi Comment guifg=#5c6370 guibg=NONE guisp=NONE gui=italic cterm=italic
+    hi Constant guifg=#d19a66 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Error guifg=#ebebeb guibg=#272c35 guisp=NONE gui=reverse cterm=reverse
-    hi Identifier guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
+    hi Identifier guifg=#61afef guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Ignore guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
-    hi PreProc guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
-    hi Special guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
+    hi PreProc guifg=#e5c07b guibg=NONE guisp=NONE gui=NONE cterm=NONE
+    hi Special guifg=#c678dd guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Statement guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Todo guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Type guifg=#ebebeb guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -126,6 +145,24 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
   let g:terminal_ansi_colors = ['#494b53', '#ff0000', '#00ff00', '#ffff00',
         \ '#0000ff', '#ff00ff', '#00ffff', '#ebebeb', '#d2d2d2', '#ff6400',
         \ '#64ff00', '#ffff64', '#0064ff', '#ff64ff', '#64ffff', '#ffffff']
+  if has('nvim')
+    let g:terminal_color_0 = '#494b53'
+    let g:terminal_color_1 = '#ff0000'
+    let g:terminal_color_2 = '#00ff00'
+    let g:terminal_color_3 = '#ffff00'
+    let g:terminal_color_4 = '#0000ff'
+    let g:terminal_color_5 = '#ff00ff'
+    let g:terminal_color_6 = '#00ffff'
+    let g:terminal_color_7 = '#ebebeb'
+    let g:terminal_color_8 = '#d2d2d2'
+    let g:terminal_color_9 = '#ff6400'
+    let g:terminal_color_10 = '#64ff00'
+    let g:terminal_color_11 = '#ffff64'
+    let g:terminal_color_12 = '#0064ff'
+    let g:terminal_color_13 = '#ff64ff'
+    let g:terminal_color_14 = '#64ffff'
+    let g:terminal_color_15 = '#ffffff'
+  endif
   if get(g:, 'groovy_transp_bg', 0) && !has('gui_running')
     hi Normal guifg=#494b53 guibg=NONE guisp=NONE gui=NONE cterm=NONE
     hi Terminal guifg=#494b53 guibg=NONE guisp=NONE gui=NONE cterm=NONE
@@ -195,6 +232,9 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi Folded gui=NONE cterm=NONE
     hi Comment gui=NONE cterm=NONE
   endif
+  if has('nvim')
+    hi TermCursor guifg=NONE guibg=NONE guisp=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
+  endif
   unlet s:t_Co s:italics
   finish
 endif
@@ -203,13 +243,13 @@ if s:t_Co >= 256
   if &background ==# 'dark'
     if get(g:, 'groovy_transp_bg', 0)
       hi Normal ctermfg=255 ctermbg=236 cterm=NONE
-      if !has('patch-8.0.0616') " Fix for Vim bug
+      if !has('patch-8.0.0616') && !has('nvim') " Fix for Vim bug
         set background=dark
       endif
       hi Terminal ctermfg=255 ctermbg=NONE cterm=NONE
     else
       hi Normal ctermfg=255 ctermbg=236 cterm=NONE
-      if !has('patch-8.0.0616') " Fix for Vim bug
+      if !has('patch-8.0.0616') && !has('nvim') " Fix for Vim bug
         set background=dark
       endif
       hi Terminal ctermfg=255 ctermbg=236 cterm=NONE
@@ -217,23 +257,22 @@ if s:t_Co >= 256
     hi ColorColumn ctermfg=fg ctermbg=236 cterm=NONE
     hi Conceal ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor ctermfg=255 ctermbg=236 cterm=NONE
-    hi CursorColumn ctermfg=255 ctermbg=236 cterm=NONE
+    hi CursorColumn ctermfg=NONE ctermbg=231 cterm=NONE
     hi CursorLine ctermfg=NONE ctermbg=231 cterm=NONE
     hi DiffAdd ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffChange ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffDelete ctermfg=255 ctermbg=236 cterm=reverse
     hi DiffText ctermfg=255 ctermbg=236 cterm=bold,reverse
     hi Directory ctermfg=39 ctermbg=236 cterm=NONE
-    hi EndOfBuffer ctermfg=255 ctermbg=236 cterm=NONE
+    hi EndOfBuffer ctermfg=NONE ctermbg=NONE cterm=NONE
     hi ErrorMsg ctermfg=255 ctermbg=236 cterm=reverse
-    hi FoldColumn ctermfg=255 ctermbg=236 cterm=NONE
     hi Folded ctermfg=255 ctermbg=236 cterm=italic
     hi IncSearch ctermfg=255 ctermbg=94 cterm=reverse
     hi LineNr ctermfg=239 ctermbg=236 cterm=NONE
-    hi MatchParen ctermfg=255 ctermbg=236 cterm=NONE
+    hi MatchParen ctermfg=167 ctermbg=NONE cterm=bold,underline
     hi ModeMsg ctermfg=255 ctermbg=236 cterm=NONE
     hi MoreMsg ctermfg=255 ctermbg=236 cterm=NONE
-    hi NonText ctermfg=255 ctermbg=236 cterm=NONE
+    hi NonText ctermfg=231 ctermbg=NONE cterm=NONE
     hi Pmenu ctermfg=255 ctermbg=236 cterm=NONE
     hi PmenuSbar ctermfg=255 ctermbg=236 cterm=NONE
     hi PmenuSel ctermfg=255 ctermbg=236 cterm=NONE
@@ -241,7 +280,6 @@ if s:t_Co >= 256
     hi Question ctermfg=255 ctermbg=236 cterm=NONE
     hi Search ctermfg=255 ctermbg=172 cterm=NONE
     hi SignColumn ctermfg=255 ctermbg=236 cterm=NONE
-    hi SpecialKey ctermfg=255 ctermbg=236 cterm=NONE
     hi SpellBad ctermfg=255 ctermbg=236 cterm=NONE
     hi SpellCap ctermfg=255 ctermbg=236 cterm=NONE
     hi SpellLocal ctermfg=255 ctermbg=236 cterm=NONE
@@ -249,21 +287,20 @@ if s:t_Co >= 256
     hi StatusLine ctermfg=255 ctermbg=231 cterm=bold
     hi StatusLineNC ctermfg=255 ctermbg=231 cterm=NONE
     hi TabLine ctermfg=255 ctermbg=236 cterm=NONE
-    hi TabLineFill ctermfg=255 ctermbg=236 cterm=NONE
-    hi TabLineSel ctermfg=255 ctermbg=236 cterm=NONE
-    hi Title ctermfg=255 ctermbg=236 cterm=bold
-    hi VertSplit ctermfg=255 ctermbg=236 cterm=NONE
+    hi Title ctermfg=255 ctermbg=NONE cterm=bold
+    hi VertSplit ctermfg=234 ctermbg=NONE cterm=NONE
     hi Visual ctermfg=255 ctermbg=231 cterm=NONE
     hi VisualNOS ctermfg=255 ctermbg=236 cterm=NONE
     hi WarningMsg ctermfg=255 ctermbg=236 cterm=NONE
+    hi Whitespace ctermfg=238 ctermbg=NONE cterm=NONE
     hi WildMenu ctermfg=255 ctermbg=236 cterm=NONE
-    hi Comment ctermfg=255 ctermbg=NONE cterm=italic
-    hi Constant ctermfg=255 ctermbg=NONE cterm=NONE
+    hi Comment ctermfg=231 ctermbg=NONE cterm=italic
+    hi Constant ctermfg=180 ctermbg=NONE cterm=NONE
     hi Error ctermfg=255 ctermbg=236 cterm=reverse
-    hi Identifier ctermfg=255 ctermbg=NONE cterm=NONE
+    hi Identifier ctermfg=39 ctermbg=NONE cterm=NONE
     hi Ignore ctermfg=255 ctermbg=NONE cterm=NONE
-    hi PreProc ctermfg=255 ctermbg=NONE cterm=NONE
-    hi Special ctermfg=255 ctermbg=NONE cterm=NONE
+    hi PreProc ctermfg=179 ctermbg=NONE cterm=NONE
+    hi Special ctermfg=170 ctermbg=NONE cterm=NONE
     hi Statement ctermfg=255 ctermbg=NONE cterm=NONE
     hi Todo ctermfg=255 ctermbg=NONE cterm=NONE
     hi Type ctermfg=255 ctermbg=NONE cterm=NONE
@@ -348,6 +385,9 @@ if s:t_Co >= 256
     hi Folded cterm=NONE
     hi Comment cterm=NONE
   endif
+  if has('nvim')
+    hi TermCursor ctermfg=NONE ctermbg=NONE cterm=reverse
+  endif
   unlet s:t_Co s:italics
   finish
 endif
@@ -364,23 +404,22 @@ if s:t_Co >= 8
     hi ColorColumn ctermfg=fg ctermbg=Black cterm=NONE
     hi Conceal ctermfg=NONE ctermbg=NONE cterm=NONE
     hi Cursor ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi CursorColumn ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi CursorColumn ctermfg=NONE ctermbg=LightGrey cterm=NONE
     hi CursorLine ctermfg=NONE ctermbg=LightGrey cterm=NONE
     hi DiffAdd ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffChange ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffDelete ctermfg=LightGrey ctermbg=Black cterm=reverse
     hi DiffText ctermfg=LightGrey ctermbg=Black cterm=bold,reverse
     hi Directory ctermfg=LightBlue ctermbg=Black cterm=NONE
-    hi EndOfBuffer ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi EndOfBuffer ctermfg=NONE ctermbg=NONE cterm=NONE
     hi ErrorMsg ctermfg=LightGrey ctermbg=Black cterm=reverse
-    hi FoldColumn ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi Folded ctermfg=LightGrey ctermbg=Black cterm=italic
     hi IncSearch ctermfg=LightGrey ctermbg=DarkYellow cterm=reverse
     hi LineNr ctermfg=DarkGrey ctermbg=Black cterm=NONE
-    hi MatchParen ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi MatchParen ctermfg=LightRed ctermbg=NONE cterm=bold,underline
     hi ModeMsg ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi MoreMsg ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi NonText ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi NonText ctermfg=LightGrey ctermbg=NONE cterm=NONE
     hi Pmenu ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi PmenuSbar ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi PmenuSel ctermfg=LightGrey ctermbg=Black cterm=NONE
@@ -388,7 +427,6 @@ if s:t_Co >= 8
     hi Question ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi Search ctermfg=LightGrey ctermbg=LightYellow cterm=NONE
     hi SignColumn ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi SpecialKey ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi SpellBad ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi SpellCap ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi SpellLocal ctermfg=LightGrey ctermbg=Black cterm=NONE
@@ -396,21 +434,20 @@ if s:t_Co >= 8
     hi StatusLine ctermfg=LightGrey ctermbg=LightGrey cterm=bold
     hi StatusLineNC ctermfg=LightGrey ctermbg=DarkGrey cterm=NONE
     hi TabLine ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi TabLineFill ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi TabLineSel ctermfg=LightGrey ctermbg=Black cterm=NONE
-    hi Title ctermfg=LightGrey ctermbg=Black cterm=bold
-    hi VertSplit ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi Title ctermfg=LightGrey ctermbg=NONE cterm=bold
+    hi VertSplit ctermfg=Black ctermbg=NONE cterm=NONE
     hi Visual ctermfg=LightGrey ctermbg=LightGrey cterm=NONE
     hi VisualNOS ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi WarningMsg ctermfg=LightGrey ctermbg=Black cterm=NONE
+    hi Whitespace ctermfg=LightGrey ctermbg=NONE cterm=NONE
     hi WildMenu ctermfg=LightGrey ctermbg=Black cterm=NONE
     hi Comment ctermfg=LightGrey ctermbg=NONE cterm=italic
-    hi Constant ctermfg=LightGrey ctermbg=NONE cterm=NONE
+    hi Constant ctermfg=DarkYellow ctermbg=NONE cterm=NONE
     hi Error ctermfg=LightGrey ctermbg=Black cterm=reverse
-    hi Identifier ctermfg=LightGrey ctermbg=NONE cterm=NONE
+    hi Identifier ctermfg=LightBlue ctermbg=NONE cterm=NONE
     hi Ignore ctermfg=LightGrey ctermbg=NONE cterm=NONE
-    hi PreProc ctermfg=LightGrey ctermbg=NONE cterm=NONE
-    hi Special ctermfg=LightGrey ctermbg=NONE cterm=NONE
+    hi PreProc ctermfg=DarkYellow ctermbg=NONE cterm=NONE
+    hi Special ctermfg=DarkMagenta ctermbg=NONE cterm=NONE
     hi Statement ctermfg=LightGrey ctermbg=NONE cterm=NONE
     hi Todo ctermfg=LightGrey ctermbg=NONE cterm=NONE
     hi Type ctermfg=LightGrey ctermbg=NONE cterm=NONE
@@ -494,6 +531,9 @@ if s:t_Co >= 8
   if !s:italics
     hi Folded cterm=NONE
     hi Comment cterm=NONE
+  endif
+  if has('nvim')
+    hi TermCursor ctermfg=NONE ctermbg=NONE cterm=reverse
   endif
   unlet s:t_Co s:italics
   finish
@@ -586,20 +626,25 @@ endif
 " Color: green                rgb(  0, 255,   0)     ~        DarkGreen
 " Color: yellow               #986801                ~        DarkYellow
 " Color: blue                 rgb(  0,   0, 255)     ~        DarkBlue
-" Color: magenta              rgb(255,   0, 255)     ~        DarkMagenta
+" Color: magenta              #c678dd                ~        DarkMagenta
 " Color: cyan                 rgb(  0, 255, 255)     ~        DarkCyan
 " Color: white                rgb(235, 235, 235)     ~        LightGrey
 " Color: brightblack          #4b5263                ~        DarkGrey
-" Color: brightred            rgb(255, 100,   0)     ~        LightRed
-" Color: brightgreen          rgb(100, 255,   0)     ~        LightGreen
+" Color: brightred            #e06c75                ~        LightRed
+" Color: brightgreen          #98c379                ~        LightGreen
 " Color: brightyellow         #c18401                ~        LightYellow
 " Color: brightblue           #61afef                ~        LightBlue
 " Color: brightmagenta        rgb(255, 100, 255)     ~        LightMagenta
 " Color: brightcyan           rgb(100, 255, 255)     ~        LightCyan
 " Color: brightwhite          #e0e0ed                231      White
-" Color: brightgray           #3e4452                231      LightGrey
+" Color: brightergrey         #3e4452                231      LightGrey
+" Color: brightgrey           #3b4048                ~        LightGrey
 " Color: charade              #2c323c                231      LightGrey
 " Color: ebonyclay            #2b323d                231      DarkGrey
+" Color: harvestgold          #e5c07b                ~        DarkYellow
+" Color: orange               #d19a66                ~        DarkYellow
+" Color: shuttlegrey          #5c6370                231      LightGrey
+" Color: woodsmoke            #181a1f                ~        Black
 " Color: yellowBg             #fef6e1                ~        White
 " Term colors: black red green yellow blue magenta cyan white
 " Term colors: brightblack brightred brightgreen brightyellow
